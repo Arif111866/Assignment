@@ -34,63 +34,61 @@ public class StudentList {
             System.out.println(Constant.error);
             System.exit(1);
          }
-//		Check arguments
+//      Check arguments
         System.out.println(Constant.loadingInfo);
         if(args[0].equals(Constant.showAll) )
         {
-                String studentName = getLineFromFile() ;
-                System.out.println(studentName);
-                String[] names = studentName.split(Constant.coma);
+                //String studentName = getLineFromFile() ;
+                System.out.println(getLineFromFile());
+                String[] names = getLineFromFile().split(Constant.coma);
                 for(String name : names) { System.out.println(name);}
         }
 
         else if(args[0].equals(Constant.showRandom))
         {
-                String line = getLineFromFile() ;
-                String[] studentName = line.split(Constant.coma);
+                //String line = getLineFromFile() ;
+                String[] studentName = getLineFromFile().split(Constant.coma);
                 Random random = new Random();
-                int randomIndex = random.nextInt(studentName.length);
-                System.out.println(studentName[randomIndex]);
+                //int randomIndex = random.nextInt(studentName.length);
+                System.out.println(studentName[random.nextInt(studentName.length)]);
         }
         else if(args[0].contains(Constant.addWord))
         {
                 String newStudentName = args[0].substring(1);
                 Date date = new Date();
-                String dateformat = Constant.dd ;
-                DateFormat dateFormat = new SimpleDateFormat(dateformat);
-                String formatted = dateFormat.format(date);
-                fileWrite(newStudentName , formatted);
+                //String dateformat = Constant.dd ;
+                DateFormat dateFormat = new SimpleDateFormat(Constant.dd);
+                //String formatted = dateFormat.format(date);
+                fileWrite(newStudentName , dateFormat.format(date));
 
 
             System.out.println();
         }
         else if(args[0].contains(Constant.findWord))
         {
-                String studentName = getLineFromFile() ;
-                String[] name = studentName.split(Constant.coma);
-                boolean done = false;
-                String checkName = args[0].substring(1);
-                for(int idx = 0 ; idx < name.length && !done ; idx = idx + 1 )
+                //String studentName = getLineFromFile() ;
+                String[] name = getLineFromFile().split(Constant.coma);
+                //boolean done = false;
+                //String checkName = args[0].substring(1);
+                int idx = 0 ;
+                for( ; idx < name.length ; idx = idx + 1 )
                 {
-                    if(name[idx].equals(checkName)) {
+                    if(name[idx].equals(args[0].substring(1))) {
                         System.out.println(Constant.foundMessage);
-                        done=true;
+                        //done=true;
+                        break ;
                     }
                 }
-                if(!done){
+                if(idx == name.length ){
                     System.out.println(Constant.notFoundMessage);
                 }
         }
         else if(args[0].contains(Constant.countStudent))
         {
-                String studentname = getLineFromFile() ;
-                char names[] = studentname.toCharArray();
-                boolean in_word = false;
-                int count=1;
-                for(char name :names) {
-                   if(name == ',') count++ ;
-                }
-                System.out.println(count +Constant.foundMessage);
+                //String studentname = getLineFromFile() ;
+                String names[] = getLineFromFile().split(Constant.coma);
+                
+                System.out.println(names.length +Constant.foundMessage);
         }
         System.out.println(Constant.loaded);
     }
